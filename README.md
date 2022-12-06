@@ -1,4 +1,6 @@
 # rabbitmq_demo
 
-simply to show rabbitmq demo
+nodejs implement rabbitmq demo
+
+
 

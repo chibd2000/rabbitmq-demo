@@ -10,9 +10,14 @@ amqp_lib.connect(amqp_config.mq_url,(error, connection)=>{
         let queue = 'test_queue'
         // 明确指定要通信的队列
         channel.assertQueue(queue, {durable: true})
+        // 设置公平遣派
+        channel.prefetch(1)
         // 消费者从指定的队列中取出message
         channel.consume(queue, (msg) => {
-            log("receive message from queue ", msg)
-        }, {noAck: true})
+            setTimeout(() => {
+                channel.ack(msg);
+                log("[+] receive message from queue -> ", msg.content.toString())
+            }, 50);
+        }, {noAck: false})
     })
 })
